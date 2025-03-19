@@ -11,7 +11,7 @@ export class CPUBoidsRenderer extends BaseRenderer {
     pipeline!: GPURenderPipeline;
     vertexBuffer!: GPUBuffer;
     instanceBuffer!: GPUBuffer;
-    numInstances: number = 3000;
+    numInstances: number = 500;
 
     // Boid parameters
     boids: Array<{

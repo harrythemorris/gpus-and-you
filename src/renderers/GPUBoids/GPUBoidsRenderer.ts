@@ -16,7 +16,7 @@ export class GPUBoidsRenderer extends BaseRenderer {
     vertexBuffer!: GPUBuffer;
     boidBuffers: GPUBuffer[] = [];
     configBuffer!: GPUBuffer;
-    numInstances: number = 50_000;
+    numInstances: number = 500;
 
     // Boid parameters
     cohesionRadius: number = 0.3 * SIM_SCALE;

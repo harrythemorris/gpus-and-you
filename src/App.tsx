@@ -41,7 +41,6 @@ export function App() {
                 renderer.destroy();
             }
 
-            console.log("Initialized");
             const update = () => {
                 renderer.update();
                 renderer.draw();
@@ -55,7 +54,6 @@ export function App() {
         });
 
         return () => {
-            console.log("destroying");
             running = false;
             renderer.destroy();
         };
