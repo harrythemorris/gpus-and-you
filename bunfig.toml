@@ -1,0 +1,5 @@
+[loader]
+".wgsl" = "text"
+
+[serve.static]
+env = "BUN_PUBLIC_*"
