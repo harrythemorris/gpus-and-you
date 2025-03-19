@@ -1,5 +1,5 @@
 import "./index.css";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useSearchParams } from "react-router";
 import {
     WebGPUInitRenderer,
@@ -23,6 +23,7 @@ export function App() {
     const canvasRef = useRef<HTMLCanvasElement>(null);
     const [searchParams, setSearchParams] = useSearchParams();
     const selectedRenderer = parseInt(searchParams.get("renderer") || "0");
+    const [fps, setFps] = useState(0);
 
     useEffect(() => {
         const canvas = canvasRef.current;
@@ -35,6 +36,8 @@ export function App() {
 
         const renderer = new renderers[selectedRenderer](canvas);
         let running = true;
+        let frameCount = 0;
+        let lastTime = performance.now();
 
         renderer.init().then(() => {
             if (!running) {
@@ -42,6 +45,15 @@ export function App() {
             }
 
             const update = () => {
+                const currentTime = performance.now();
+                frameCount++;
+
+                if (currentTime - lastTime >= 1000) {
+                    setFps(frameCount);
+                    frameCount = 0;
+                    lastTime = currentTime;
+                }
+
                 renderer.update();
                 renderer.draw();
 
@@ -81,7 +93,10 @@ export function App() {
                     6. GPU BOIDS
                 </li>
             </ul>
-            <canvas ref={canvasRef} />
+            <div className="renderer">
+                <div className="fps">{fps}fps</div>
+                <canvas ref={canvasRef} />
+            </div>
         </div>
     );
 }
