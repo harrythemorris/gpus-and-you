@@ -4,7 +4,7 @@ import ComputeShader from "./GPUBoidsCompute.wgsl" with { type: "text" };
 
 const WORKGROUP_SIZE = 256;
 
-const RENDER_SCALE = 0.004;
+const RENDER_SCALE = 0.01;
 const SIM_SCALE = 0.1;
 
 export class GPUBoidsRenderer extends BaseRenderer {

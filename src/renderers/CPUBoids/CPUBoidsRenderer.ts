@@ -1,8 +1,9 @@
 import { BaseRenderer } from "../Base/BaseRenderer";
 import Shader from "./CPUBoidsRenderer.wgsl" with { type: "text" };
 
-const RENDER_SCALE = 0.004;
+const RENDER_SCALE = 0.01;
 const SIM_SCALE = 0.1;
+const ROT_OFFSET = Math.PI / 2 + Math.PI;
 
 export class CPUBoidsRenderer extends BaseRenderer {
     device!: GPUDevice;
@@ -249,7 +250,7 @@ export class CPUBoidsRenderer extends BaseRenderer {
             if (boid.pos[1] < -1) boid.pos[1] = 1;
 
             // Update rotation to match velocity
-            boid.rot = Math.atan2(boid.vel[1], boid.vel[0]) + Math.PI / 2;
+            boid.rot = Math.atan2(boid.vel[1], boid.vel[0]) + ROT_OFFSET;
         }
 
         // Update instance buffer

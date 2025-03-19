@@ -13,7 +13,7 @@ struct VertexOutput {
 fn vertexMain(vert: VertexInput) -> VertexOutput {
     var output: VertexOutput;
     // Calc angle from the velocity
-    let angle = atan2(vert.instanceVelocity.y, vert.instanceVelocity.x);
+    let angle = atan2(vert.instanceVelocity.y, vert.instanceVelocity.x) + radians(270.0);
 
     let rotatedPos = vec2f(
         vert.position.x * cos(angle) - vert.position.y * sin(angle),
