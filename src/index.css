@@ -37,6 +37,11 @@ body {
     font-family: "JetBrains Mono";
     text-transform: uppercase;
     font-size: 0.75rem;
+    cursor: pointer;
+}
+
+.nav li:hover {
+    text-decoration: underline;
 }
 
 canvas {
