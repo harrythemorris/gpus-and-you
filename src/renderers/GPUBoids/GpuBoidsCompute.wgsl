@@ -53,14 +53,19 @@
          let diff = otherBoid.position - currentBoid.position;
          let dist = length(diff);
 
+         // Cohesion
          if (dist < config.cohesionRadius) {
              cohesionSum += otherBoid.position;
              cohesionCount++;
          }
+
+         // Alignment
          if (dist < config.alignmentRadius) {
              alignmentSum += otherBoid.velocity;
              alignmentCount++;
          }
+
+         // Separation
          if (dist < config.separationRadius) {
             let factor = 1 / max(dist, 0.0001);
             separationSum -= diff * factor;
@@ -70,7 +75,8 @@
 
      var newVelocity = currentBoid.velocity;
 
-     if (cohesionCount > 0) {
+     // This is non-zero to prevent overly synchronized "oscillations"
+     if (cohesionCount > 1) {
          let cohesionCenter = (cohesionSum / f32(cohesionCount) - currentBoid.position);
          newVelocity += normalize(cohesionCenter) * config.cohesionWeight;
      }
@@ -86,11 +92,6 @@
      let speed = length(newVelocity);
      if (speed > config.maxSpeed) {
          newVelocity = normalize(newVelocity) * config.maxSpeed;
-     }
-
-     let minSpeed = config.maxSpeed * 0.5;
-     if (speed < minSpeed) {
-         newVelocity = normalize_safe(newVelocity) * minSpeed;
      }
 
      // Update position
