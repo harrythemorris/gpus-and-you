@@ -1,7 +1,7 @@
 import { BaseRenderer } from "../Base/BaseRenderer";
 import Shader from "./CPUBoidsRenderer.wgsl" with { type: "text" };
 
-const RENDER_SCALE = 0.01;
+const RENDER_SCALE = 0.006;
 const SIM_SCALE = 0.1;
 const ROT_OFFSET = Math.PI / 2 + Math.PI;
 
@@ -205,24 +205,18 @@ export class CPUBoidsRenderer extends BaseRenderer {
             // Apply forces
             if (cohesionCount > 0) {
                 // Calculate the center of cohesion and weight it
-                cohesion[0] =
-                    (cohesion[0] / cohesionCount - boid.pos[0]) *
-                    this.cohesionWeight;
-                cohesion[1] =
-                    (cohesion[1] / cohesionCount - boid.pos[1]) *
-                    this.cohesionWeight;
+                cohesion[0] = cohesion[0] / cohesionCount - boid.pos[0];
+                cohesion[1] = cohesion[1] / cohesionCount - boid.pos[1];
                 boid.vel[0] += cohesion[0] * this.cohesionWeight;
                 boid.vel[1] += cohesion[1] * this.cohesionWeight;
             }
 
             if (alignmentCount > 0) {
                 // Average and weight the alignment
-                alignment[0] =
-                    (alignment[0] / alignmentCount) * this.alignmentWeight;
-                alignment[1] =
-                    (alignment[1] / alignmentCount) * this.alignmentWeight;
-                boid.vel[0] += alignment[0];
-                boid.vel[1] += alignment[1];
+                alignment[0] = alignment[0] / alignmentCount;
+                alignment[1] = alignment[1] / alignmentCount;
+                boid.vel[0] += alignment[0] * this.alignmentWeight;
+                boid.vel[1] += alignment[1] * this.alignmentWeight;
             }
 
             if (separationCount > 0) {

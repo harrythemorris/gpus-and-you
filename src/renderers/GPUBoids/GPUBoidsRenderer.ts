@@ -4,7 +4,7 @@ import ComputeShader from "./GPUBoidsCompute.wgsl" with { type: "text" };
 
 const WORKGROUP_SIZE = 256;
 
-const RENDER_SCALE = 0.01;
+const RENDER_SCALE = 0.006;
 const SIM_SCALE = 0.1;
 
 export class GPUBoidsRenderer extends BaseRenderer {
@@ -148,11 +148,6 @@ export class GPUBoidsRenderer extends BaseRenderer {
         // Initialize boid data
         const initialData = new Float32Array(this.numInstances * 4); // pos(2) + vel(2)
         for (let i = 0; i < this.numInstances; i++) {
-            const rotation = Math.random() * Math.PI * 2;
-
-            const velX = Math.cos(rotation) * this.maxSpeed;
-            const velY = Math.sin(rotation) * this.maxSpeed;
-
             const baseIndex = i * 4;
 
             // Position
@@ -160,8 +155,8 @@ export class GPUBoidsRenderer extends BaseRenderer {
             initialData[baseIndex + 1] = Math.random() * 2 - 1;
 
             // Velocity
-            initialData[baseIndex + 2] = velX;
-            initialData[baseIndex + 3] = velY;
+            initialData[baseIndex + 2] = Math.random() * 0.02 - 0.01;
+            initialData[baseIndex + 3] = Math.random() * 0.02 - 0.01;
         }
 
         // Create double-buffered boid data
