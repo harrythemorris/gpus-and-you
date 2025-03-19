@@ -8,11 +8,15 @@
 import { createRoot } from "react-dom/client";
 import { StrictMode } from "react";
 import { App } from "./App";
+import { Router } from "react-router";
+import { BrowserRouter } from "react-router";
 
 const elem = document.getElementById("root")!;
 const app = (
     <StrictMode>
-        <App />
+        <BrowserRouter>
+            <App />
+        </BrowserRouter>
     </StrictMode>
 );
 

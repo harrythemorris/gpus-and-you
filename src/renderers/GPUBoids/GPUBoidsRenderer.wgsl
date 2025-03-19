@@ -21,7 +21,7 @@ fn vertexMain(vert: VertexInput) -> VertexOutput {
     );
     output.position = vec4f(rotatedPos + vert.instancePosition, 0, 1);
     output.color = vec4f(0.0, 0.0, 0.0, 1.0);
-    output.color = vec4f(cos(angle) * 0.5 + 0.5, sin(angle) * 0.5 + 0.5, 1.0, 1.0);
+    // output.color = vec4f(cos(angle) * 0.5 + 0.5, sin(angle) * 0.5 + 0.5, 1.0, 1.0);
 
     return output;
 }
